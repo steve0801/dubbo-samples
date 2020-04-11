@@ -40,6 +40,10 @@ public class FooProviderBootstrap {
     private static final String RES_KEY = INTERFACE_RES_KEY + ":sayHello(java.lang.String)";
 
     public static void main(String[] args) throws InterruptedException {
+        new EmbeddedZooKeeper(2181, false).start();
+        // wait for embedded zookeeper start completely.
+        Thread.sleep(1000);
+
         // Users don't need to manually call this method.
         // Only for eager initialization.
         InitExecutor.doInit();

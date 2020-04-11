@@ -29,6 +29,10 @@ public class Application {
     private static String zookeeperHost = System.getProperty("zookeeper.address", "127.0.0.1");
 
     public static void main(String[] args) throws Exception {
+        new EmbeddedZooKeeper(2181, false).start();
+        // wait for embedded zookeeper start completely.
+        Thread.sleep(1000);
+
         ServiceConfig<GreetingsService> service = new ServiceConfig<>();
         service.setApplication(new ApplicationConfig("first-dubbo-provider"));
         service.setRegistry(new RegistryConfig("zookeeper://" + zookeeperHost + ":2181"));
